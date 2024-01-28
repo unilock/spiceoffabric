@@ -120,7 +120,7 @@ public class SpiceOfFabric implements ModInitializer {
 	}
 
 	private static void initNativeFoodContainerItems() {
-		List<Item> foodContainerItems = new ArrayList<>(4);
+		List<Item> foodContainerItems = new ArrayList<>(3);
 		if (SOFConfig.items.enablePaperBag) {
 			foodContainerItems.add(Registry.register(
 					Registries.ITEM, new Identifier(MOD_ID, "paper_bag"),
@@ -146,8 +146,10 @@ public class SpiceOfFabric implements ModInitializer {
 		// ITEM GROUPS
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
 			entries.add(createFoodJournalStack());
-			for (Item item : foodContainerItems) {
-				entries.add(item);
+			if (SpiceOfFabric.foodContainerItems != null) {
+				for (Item item : foodContainerItems) {
+					entries.add(item);
+				}
 			}
 		});
 	}
